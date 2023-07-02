@@ -2,22 +2,31 @@
 
 def pascal_triangle(n):
     if n <= 0:
-        return []  # Return an empty list if n <= 0
+        return []
 
-    triangle = [[1]]  # Initialize the triangle with the first row
-
-    for i in range(1, n):
-        row = [1]  # Start each row with 1
-
+    triangle = []
+    row = []
+    for i in range(n):
+        row = [1] * (i + 1)
         for j in range(1, i):
-            # Calculate each element of the row as the sum of the two elements from the previous row
-            row.append(triangle[i-1][j-1] + triangle[i-1][j])
+            row[j] = triangle[i-1][j-1] + triangle[i-1][j]
+        triangle.append(row)
 
-        row.append(1)  # End each row with 1
-        triangle.append(row)  # Add the row to the triangle
-
-    return triangle  # Return the generated triangle
+    return triangle
 
 
-# Example usage
-print(pascal_triangle(5))
+n = int(input("Enter the value of n: "))
+result = pascal_triangle(n)
+
+expected_result = [
+    [1],
+    [1, 1],
+    [1, 2, 1],
+    [1, 3, 3, 1],
+    [1, 4, 6, 4, 1]
+]
+
+if result == expected_result:
+    print("Output matches expected result.")
+else:
+    print("Output does not match expected result.")
